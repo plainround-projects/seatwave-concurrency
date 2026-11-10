@@ -1,0 +1,22 @@
+# Every version is exact. Each was checked on Maven Central or the Gradle Plugin Portal on 10 November 2026.
+[versions]
+result4j = "1.2.0"
+h2 = "2.5.252"
+junit = "6.1.3"
+assertj = "3.27.7"
+awaitility = "4.3.0"
+spotless = "8.11.0"
+googleJavaFormat = "2.0.0"
+jacoco = "0.8.16"
+
+[libraries]
+result4j = { module = "com.github.sviperll:result4j", version.ref = "result4j" }
+h2 = { module = "com.h2database:h2", version.ref = "h2" }
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
+awaitility = { module = "org.awaitility:awaitility", version.ref = "awaitility" }
+
+[plugins]
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }

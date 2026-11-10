@@ -1,0 +1,13 @@
+# Optional: runs the full build in a clean JDK 25 container, so no local JDK is needed.
+# The image tag was checked on Docker Hub on 10 November 2026.
+services:
+  jdk:
+    image: eclipse-temurin:25.0.5_8-jdk-noble
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - gradle-cache:/root/.gradle
+    command: ./gradlew --no-daemon check
+
+volumes:
+  gradle-cache:
