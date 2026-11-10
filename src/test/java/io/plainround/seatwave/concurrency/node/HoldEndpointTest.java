@@ -107,6 +107,8 @@ class HoldEndpointTest {
         ConnectionPool pool = new ConnectionPool(seededConnections())) {
       HoldEndpoint endpoint = endpoint(workers, pool, fakeNanos::get);
       workers.tryExecute(() -> awaitQuietly(release));
+      // Wait until the worker has taken the blocker, so the one queue slot is free for the hold.
+      await().atMost(TestNodes.LONG_WAIT).until(() -> workers.queued() == 0);
       CompletableFuture<HoldReply> queued = endpoint.submit(new HoldRequest(1, "A-1", "fan_1"));
 
       fakeNanos.addAndGet(QUEUE_WAIT_LIMIT.toNanos() + 1);

@@ -4,6 +4,21 @@ All notable changes to this project are written here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project uses
 [Semantic Versioning](https://semver.org/).
 
+## [1.1.0] - 2026-11-10
+
+### Added
+
+- `tech/`: 27 beginner notes, one per technology, with line-by-line walkthroughs of the main code,
+  the tests, the build files and the wrapper scripts, and an index with a reading order.
+
+### Fixed
+
+- `EventLoopServer.close` now frees its workers and channels on every path, also when the loop
+  thread does not stop within the close limit.
+- `HoldEndpointTest`: the queue-wait test waits until the worker has taken the blocking job before
+  it submits the hold, which removes a rare false failure.
+- `.editorconfig` states four spaces for `*.kts` files, which is what the build files use.
+
 ## [1.0.0] - 2026-11-10
 
 ### Added

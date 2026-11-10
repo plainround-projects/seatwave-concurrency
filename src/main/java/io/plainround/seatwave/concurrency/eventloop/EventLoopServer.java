@@ -110,7 +110,13 @@ public final class EventLoopServer implements AutoCloseable {
       InterruptedIOException stopped = new InterruptedIOException("interrupted while closing");
       stopped.initCause(interrupted);
       throw stopped;
+    } finally {
+      // Free the workers and the channels even when the loop thread did not stop in time.
+      releaseResources();
     }
+  }
+
+  private void releaseResources() throws IOException {
     offloadWorkers.close();
     for (SelectionKey key : selector.keys()) {
       key.channel().close();

@@ -40,7 +40,7 @@ Every version is exact. Each was checked on Maven Central on 10 November 2026 an
 ./gradlew clean check
 ```
 
-This checks formatting with Spotless, compiles with `-Xlint:all -Werror`, runs the tests and fails if line coverage drops below 0.80. Run `./gradlew spotlessApply` first to fix formatting. The tests are deterministic: latches, Awaitility with bounds and a fake clock, never `Thread.sleep` to synchronize. The measuring runs are separate tasks, so `check` stays fast.
+This checks formatting with Spotless, compiles with `-Xlint:all -Werror`, runs the tests and fails if line coverage drops below 0.80. Run `./gradlew spotlessApply` first to fix formatting. The tests never use `Thread.sleep` to synchronize: they use latches, Awaitility with bounds and a fake clock. A few tests of the benchmark and the demos use the real clock, with wide bounds. The measuring runs are separate tasks, so `check` stays fast.
 
 Result on 10 November 2026 (Temurin 25.0.2, macOS): `BUILD SUCCESSFUL` in 6 seconds, 60 tests, 0 failures, line coverage 83.5 percent (1,190 of 1,425 lines). The untested lines are mostly the `main` methods of the command-line classes, which print and call `System.exit`.
 
@@ -203,6 +203,7 @@ seatwave-concurrency/
   gradle/                     Wrapper files and libs.versions.toml, the one place for versions
   gradle.lockfile             Pinned transitive versions (settings-gradle.lockfile does the same for settings)
   config/                     Every setting of every program; no defaults in code
+  tech/                       Beginner notes: one file per technology, plus line-by-line walkthroughs
   src/main/java/io/plainround/seatwave/concurrency/
     config/                   SettingsReader
     node/                     The node: settings, two executors, the pool, the hold endpoint
@@ -215,6 +216,10 @@ seatwave-concurrency/
 ```
 
 `ARCHITECTURE.md` explains the packages, one hold step by step, the decisions and the invariant.
+
+## Technology notes
+
+The `tech/` folder explains every technology this repository uses, from zero: Java, threads and executors, Gradle and its wrapper scripts, the version catalog, dependency locking, the formatter, the coverage tool, the test libraries, H2 and JDBC, the properties, CSV and SVG formats, Docker Compose, EditorConfig and Git. Seven more files walk through the main code and the tests line by line. Start at `tech/README.md`, which gives a reading order.
 
 ## What is simplified for teaching
 
